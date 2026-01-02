@@ -128,15 +128,11 @@ func (c *Cache) FilePath(gpath string) (string, error) {
 	ppath, fname := path.Split(gpath)
 	ppath = strings.TrimSuffix(ppath, "/")
 
-	fdirs, err := c.Dirs(ppath)
+	fdir, err := c.Dir(ppath)
 	if err != nil {
 		return "", err
 	}
-	fdir, ok := fdirs[ppath]
-	if !ok {
-		return "", errors.Errorf("Dir not found for %s", gpath)
-	}
-
+	
 	return filepath.Join(fdir, fname), nil
 }
 
